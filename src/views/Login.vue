@@ -42,11 +42,18 @@
 import * as Yup from 'yup';
 import BasicLayout from '../layouts/BasicLayout';
 import {loginAPI} from '../api/user';
+import {setTokenAPI, getTokenAPI} from '../api/token';
 
 export default {
     name: "login",
     components: {
         BasicLayout
+    },
+    created(){
+        this.token= getTokenAPI();
+        if(this.token){
+            this.$router.push('/');
+        }
     },
     data(){
         return{
@@ -62,7 +69,8 @@ export default {
                 identifier: Yup.string().required(true),
                 password: Yup.string().required(true),
             }),
-            loading: false
+            loading: false,
+            token: null,
         }
     },
     methods: {
@@ -78,7 +86,8 @@ export default {
                 try {
                     const response= await loginAPI(this.formData);
                     this.loading= false;
-                    if(!response?.jwt) throw "EL usuario o contraseña no son validos"
+                    if(!response?.jwt) throw "EL usuario o contraseña no son validos";
+                    setTokenAPI(response.jwt);
                     this.$router.push("/");
                 } catch (error) {
                     console.log(error);

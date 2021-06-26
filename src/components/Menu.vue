@@ -9,17 +9,28 @@
                             :src="require('../assets/logo.jpg')" 
                             fluid 
                             alt="fluid image"
-                            class="image"
+                            class="image mx-1"
                         ></b-img>
-                        <p class="text-menu">Categorias</p>
+                        <p class="text-menu mx-1">Categorias</p>
                     </router-link>
                 </div>
               </b-col>
               <b-col>
                     <div class="right-menu">
-                        <router-link class="item" to="/login">
+                        <router-link class="item" to="/login" v-if="!token">
                             <p class="text-menu">Iniciar Sesion</p>
                         </router-link>
+                        <template v-if="token" class="item">
+                            <router-link class="item" to="/orders">
+                                <p class="text-menu px-3">Pedidos</p>
+                            </router-link>
+                            <span class="text-menu px-3">
+                                <i class="bi-cart4" style="font-size: 30px; color: white;"></i>
+                            </span>
+                            <span class="text-menu px-3">
+                                <i class="bi-door-closed" style="font-size: 30px; color: white;"></i>
+                            </span>
+                        </template>
                     </div>
               </b-col>
           </b-row>
@@ -28,8 +39,15 @@
 </template>
 
 <script>
+import {getTokenAPI} from '../api/token';
+
 export default {
-    name: "Menu"
+    name: "Menu",
+    data(){
+        return{
+            token: getTokenAPI(),
+        }
+    }
 }
 </script>
 

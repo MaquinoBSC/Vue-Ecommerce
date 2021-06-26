@@ -49,11 +49,18 @@
 import BasicLayout from '../layouts/BasicLayout';
 import * as Yup from 'yup';
 import {registerAPI} from '../api/user';
+import {getTokenAPI, setTokenAPI} from '../api/token';
 
 export default {
     name: "Register",
     components: {
         BasicLayout,
+    },
+    created(){
+        this.token= getTokenAPI();
+        if(this.token){
+            this.$router.push('/');
+        }
     },
     data(){
         return{
@@ -69,6 +76,7 @@ export default {
                 password: Yup.string().required(true),
             }),
             loading: false,
+            token: null,
         }
     },
     methods:{
