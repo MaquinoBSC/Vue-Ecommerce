@@ -6,8 +6,8 @@
                 <div class="field">
                     <b-form-input
                         placeholder="Email"
-                        v-model="formData.indentifier"
-                        :class="{error: formError.indentifier}"
+                        v-model="formData.identifier"
+                        :class="{error: formError.identifier}"
                     ></b-form-input>
                 </div>
                 <div class="field">
@@ -39,8 +39,9 @@
 </template>
 
 <script>
-import BasicLayout from '../layouts/BasicLayout';
 import * as Yup from 'yup';
+import BasicLayout from '../layouts/BasicLayout';
+import {loginAPI} from '../api/user';
 
 export default {
     name: "login",
@@ -50,15 +51,15 @@ export default {
     data(){
         return{
             formData: {
-                indentifier: "",
+                identifier: "",
                 password: "",
             },
             formError: {
-                indentifier: false,
+                identifier: false,
                 password: false
             },
             schemaForm: Yup.object().shape({
-                indentifier: Yup.string().required(true),
+                identifier: Yup.string().required(true),
                 password: Yup.string().required(true),
             }),
             loading: false
@@ -68,12 +69,20 @@ export default {
         async login(){
             this.loading= true;
             this.formError= {
-                indentifier: false,
+                identifier: false,
                 password: false
             }
 
             try {
-                await this.schemaForm.validate(this.formData, {abortEarly: false})
+                await this.schemaForm.validate(this.formData, {abortEarly: false});
+                try {
+                    const response= await loginAPI(this.formData);
+                    console.log(response);
+                    this.loading= true;
+                    
+                } catch (error) {
+                    console.log(error);
+                }
             } catch (error) {
                 console.log(error);
                 error.inner.forEach((err)=> {
