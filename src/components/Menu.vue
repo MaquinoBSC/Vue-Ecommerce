@@ -27,7 +27,7 @@
                             <span class="text-menu px-3">
                                 <i class="bi-cart4" style="font-size: 30px; color: white;"></i>
                             </span>
-                            <span class="text-menu px-3">
+                            <span class="text-menu px-3" @click="logout()">
                                 <i class="bi-door-closed" style="font-size: 30px; color: white;"></i>
                             </span>
                         </template>
@@ -39,13 +39,19 @@
 </template>
 
 <script>
-import {getTokenAPI} from '../api/token';
+import {getTokenAPI, deleteTokenAPI} from '../api/token';
 
 export default {
     name: "Menu",
     data(){
         return{
             token: getTokenAPI(),
+        }
+    },
+    methods: {
+        logout(){
+            deleteTokenAPI();
+            location.replace("/");
         }
     }
 }
