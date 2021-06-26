@@ -77,9 +77,9 @@ export default {
                 await this.schemaForm.validate(this.formData, {abortEarly: false});
                 try {
                     const response= await loginAPI(this.formData);
-                    console.log(response);
-                    this.loading= true;
-                    
+                    this.loading= false;
+                    if(!response?.jwt) throw "EL usuario o contraseña no son validos"
+                    this.$router.push("/");
                 } catch (error) {
                     console.log(error);
                 }
