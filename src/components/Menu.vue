@@ -4,15 +4,19 @@
           <b-row>
               <b-col>
                   <div class="left-menu">
-                    <router-link class="row categories item" to="/">
+                    <router-link class="row categories item mx-2" to="/">
                         <b-img 
                             :src="require('../assets/logo.jpg')" 
                             fluid 
                             alt="fluid image"
                             class="image mx-1"
                         ></b-img>
-                        <p class="text-menu mx-1">Categorias</p>
                     </router-link>
+                    <template v-for="category in categories">
+                        <router-link class="item mx-3" :to="category.slug" :key="category.id">
+                            <p class="text-menu">{{category.title}}</p>
+                        </router-link>
+                    </template>
                 </div>
               </b-col>
               <b-col>
@@ -40,18 +44,26 @@
 
 <script>
 import {getTokenAPI, deleteTokenAPI} from '../api/token';
+import {getCategoriesAPI} from '../api/category';
 
 export default {
     name: "Menu",
+    async created(){
+        await this.getCategories();
+    },
     data(){
         return{
             token: getTokenAPI(),
+            categories: null,
         }
     },
     methods: {
         logout(){
             deleteTokenAPI();
             location.replace("/");
+        },
+        async getCategories(){
+            this.categories= await getCategoriesAPI();
         }
     }
 }
@@ -81,9 +93,5 @@ export default {
     .image {
         width: 100px;
         border-radius: 15px;
-    }
-
-    .text-menu {
-
     }
 </style>
