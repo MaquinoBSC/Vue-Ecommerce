@@ -13,6 +13,7 @@ export default {
         BasicLayout
     }, 
     watch: {
+        //De esta manera podemos acceder al parametro que se envia en una ruta dinamica
         $route(to, from){
             console.log(to);
         }
