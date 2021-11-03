@@ -6,6 +6,7 @@
 
 <script>
 import BasicLayout from '../layouts/BasicLayout.vue';
+import { getProductCategory } from '../api/products';
 
 export default {
     name: "Category",
@@ -17,6 +18,10 @@ export default {
         $route(to, from){
             console.log(to);
         }
+    },
+    async created(){
+        const products= await getProductCategory("golosinas");
+        console.log(products);
     }
 }
 </script>
