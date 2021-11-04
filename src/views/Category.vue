@@ -1,7 +1,10 @@
 <template>
     <BasicLayout>
-        <h1>Estamos en la categoria</h1>
-        {{ products }}
+        <div class="row">
+            <div class="col-xl-2 col-lg-4 col-md-6 col-sm-8" v-for="product in products" :key="product.id">
+                <Products :product="product" />
+            </div>
+        </div>        
     </BasicLayout>
 </template>
 
@@ -16,13 +19,14 @@ export default {
         BasicLayout,
         Products
     }, 
+    created(){
+        this.getProducts(this.$route.params.category);
+    },
     watch: {
         //De esta manera podemos acceder al parametro que se envia en una ruta dinamica
         $route(to, from){
             this.getProducts(to.params.category);
         }
-    },
-    created(){
     },
     data(){
         return{
