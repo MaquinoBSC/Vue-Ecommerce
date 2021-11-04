@@ -7,7 +7,7 @@
           <div class="header">{{ product.name }}</div>
           <div class="description">$ {{ product.price }}</div>
       </div>
-      <div class="button">
+      <div class="button" @click="addProductCart(product.id)">
           Comprar
       </div>
       <!-- <button @click="displayProd()">AQUI</button> -->
@@ -16,6 +16,7 @@
 
 <script>
 import { API_URL } from "../utils/constants";
+import { addProductCartApi } from '../api/cart';
 
 
 export default {
@@ -32,6 +33,9 @@ export default {
     methods: {
         displayProd(){
             console.log(this.prod);
+        },
+        addProductCart(idProduct){
+            addProductCartApi(idProduct);
         }
     },
 }
