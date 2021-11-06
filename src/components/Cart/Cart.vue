@@ -2,17 +2,22 @@
     <div>
         <div class="cart-dimmer" :class="{ open: showCart }" @click="updateShowCart(false)" />
         <div class="cart" :class="{ open: showCart }">
-            <h2>Esto es el carrito</h2>
-            <button @click="updateShowCart(false)">Cerrar</button>
+            <div>
+                <CartHeader :updateShowCart="updateShowCart" />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import CartHeader from './CartHeader.vue';
 
 export default {
     name: "Cart",
+    components: {
+        CartHeader
+    },
     data(){
         return{
 
