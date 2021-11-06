@@ -1,8 +1,11 @@
 <template>
-  <div class="cart" :class="{ open: showCart }">
-      <h2>Esto es el carrito</h2>
-      <button @click="updateShowCart(false)">Cerrar</button>
-  </div>
+    <div>
+        <div class="cart-dimmer" :class="{ open: showCart }" @click="updateShowCart(false)" />
+        <div class="cart" :class="{ open: showCart }">
+            <h2>Esto es el carrito</h2>
+            <button @click="updateShowCart(false)">Cerrar</button>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -25,6 +28,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .cart-dimmer{
+        opacity: 0;
+        transition: opacity 0.5s ease;
+
+        &.open{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            opacity: 0.7;
+        }
+    }
+
     .cart{
         position: fixed;
         right: 0;
@@ -36,6 +54,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        transition: transform 0.9s;
         transform: translateX(150%);
 
         &.open{
