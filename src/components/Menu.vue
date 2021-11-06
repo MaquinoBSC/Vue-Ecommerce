@@ -28,7 +28,7 @@
                             <router-link class="item" to="/orders">
                                 <p class="text-menu px-3">Pedidos</p>
                             </router-link>
-                            <span class="text-menu px-3">
+                            <span class="text-menu px-3" @click="updateShowCart(true)">
                                 <i class="bi-cart4" style="font-size: 30px; color: white;"></i>
                             </span>
                             <span class="text-menu px-3" @click="logout()">
@@ -45,6 +45,7 @@
 <script>
 import {getTokenAPI, deleteTokenAPI} from '../api/token';
 import {getCategoriesAPI} from '../api/category';
+import { mapActions } from 'vuex';
 
 export default {
     name: "Menu",
@@ -58,6 +59,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['updateShowCart']),
         logout(){
             deleteTokenAPI();
             location.replace("/");
