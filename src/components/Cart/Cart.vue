@@ -12,6 +12,7 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import CartHeader from './CartHeader.vue';
+import { getProductsCartApi } from '../../api/cart';
 
 export default {
     name: "Cart",
@@ -20,14 +21,23 @@ export default {
     },
     data(){
         return{
-
+            products: [],
         }
     },
     methods: {
         ...mapActions(['updateShowCart']),
+        async getProductCart(){
+            this.products= await getProductsCartApi();
+            console.log(this.products);
+        },
     },
     computed: {
-        ...mapState(['showCart'])
+        ...mapState(['showCart']),
+    },
+    watch: {
+        showCart(){
+            this.getProductCart();
+        }
     }
 }
 </script>
