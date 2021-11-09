@@ -4,6 +4,7 @@
         <div class="cart" :class="{ open: showCart }">
             <div>
                 <CartHeader :updateShowCart="updateShowCart" />
+                <CartBody :products="products" />
             </div>
         </div>
     </div>
@@ -12,12 +13,14 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import CartHeader from './CartHeader.vue';
+import CartBody from './CartBody.vue';
 import { getProductsCartApi } from '../../api/cart';
 
 export default {
     name: "Cart",
     components: {
-        CartHeader
+        CartHeader,
+        CartBody
     },
     data(){
         return{

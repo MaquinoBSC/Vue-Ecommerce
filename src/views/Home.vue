@@ -1,6 +1,6 @@
 <template>
   <BasicLayout>
-    <h1>Ultimos porductos</h1>
+    <h1>Ultimos productos</h1>
     <div class="container">
       <div class="row">
         <div 

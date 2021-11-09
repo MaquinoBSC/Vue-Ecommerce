@@ -31,19 +31,16 @@ export async function getProductsCartApi(){
             const result= await response.json();
             products.push(result);
         }
-        console.log("Products: ", products);
 
         const productsCount= countBy(products, (product)=> {
             return product.name;
         });
-        console.log("productsCount: ", productsCount);
 
         const combined= uniqBy(products, (product)=> {
             const productTemp= product;
             productTemp.quantity= productsCount[product.name];
             return productTemp.name;
         });
-        console.log("combined: ", combined);
 
         return combined;
 
