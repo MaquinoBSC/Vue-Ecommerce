@@ -4,7 +4,7 @@
         <div class="cart" :class="{ open: showCart }">
             <div>
                 <CartHeader :updateShowCart="updateShowCart" />
-                <CartBody :products="products" />
+                <CartBody :products="products" :reloadCartFn="reloadCartFn" />
             </div>
         </div>
     </div>
@@ -25,6 +25,7 @@ export default {
     data(){
         return{
             products: [],
+            reloadCart: false,
         }
     },
     methods: {
@@ -33,12 +34,18 @@ export default {
             this.products= await getProductsCartApi();
             console.log(this.products);
         },
+        reloadCartFn(){
+            this.reloadCart= !this.reloadCart;
+        }
     },
     computed: {
         ...mapState(['showCart']),
     },
     watch: {
         showCart(){
+            this.getProductCart();
+        },
+        reloadCart(){
             this.getProductCart();
         }
     }
