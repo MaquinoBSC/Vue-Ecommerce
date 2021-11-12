@@ -9,7 +9,7 @@
                   <div class="quantity">
                       <button class="ui btn btn-primary" @click="increaseProductCart(product.id)"> + </button>
                       <p>{{product.quantity}}</p>
-                      <button class="ui btn btn-primary"> - </button>
+                      <button class="ui btn btn-primary" @click="decreaseProductCart(product.id)"> - </button>
                   </div>
               </div>
           </div>
@@ -19,7 +19,7 @@
 
 <script>
 import {API_URL} from '../../utils/constants';
-import { addProductCartApi } from '../../api/cart';
+import { addProductCartApi, deleteProductCartApi } from '../../api/cart';
 
 export default {
     name: "CartBody",
@@ -33,6 +33,10 @@ export default {
     methods: {
         increaseProductCart(id){
             addProductCartApi(id);
+            this.$props.reloadCartFn();
+        },
+        decreaseProductCart(id){
+            deleteProductCartApi(id);
             this.$props.reloadCartFn();
         }
     }
