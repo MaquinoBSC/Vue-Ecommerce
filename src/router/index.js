@@ -20,9 +20,14 @@ const routes = [
     component: ()=> import('../views/Register.vue'),
   },
   {
+    path:"/cart",
+    name: "Cart",
+    component: ()=> import('../views/Cart.vue'),
+  },
+  {
     path:"/:category",
     component: ()=> import('../views/Category.vue'),
-  }
+  },
 ]
 
 const router = new VueRouter({
