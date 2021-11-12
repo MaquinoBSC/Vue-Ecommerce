@@ -39,7 +39,7 @@ export default {
             deleteProductCartApi(id);
             this.$props.reloadCartFn();
         }
-    }
+    },
 }
 </script>
 
@@ -47,7 +47,7 @@ export default {
     .cart-body {
         padding: 20px 10px;
         overflow-y: scroll;
-        height: calc(100vh - 50px);
+        height: calc(100vh - 150px);
 
         &::-webkit-scrollbar {
             display: none;

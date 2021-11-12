@@ -6,6 +6,7 @@
                 <CartHeader :updateShowCart="updateShowCart" />
                 <CartBody :products="products" :reloadCartFn="reloadCartFn" />
             </div>
+            <CartFooter :products="products" :updateShowCart="updateShowCart" v-if="products" />
         </div>
     </div>
 </template>
@@ -14,13 +15,15 @@
 import { mapState, mapActions } from 'vuex';
 import CartHeader from './CartHeader.vue';
 import CartBody from './CartBody.vue';
+import CartFooter from './CartFooter.vue';
 import { getProductsCartApi } from '../../api/cart';
 
 export default {
     name: "Cart",
     components: {
         CartHeader,
-        CartBody
+        CartBody,
+        CartFooter
     },
     data(){
         return{
