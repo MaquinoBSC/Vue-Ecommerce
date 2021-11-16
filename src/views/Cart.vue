@@ -22,7 +22,7 @@
                 <tr>
                     <td></td>
                     <td>Total: </td>
-                    <td colspan="2">...</td>
+                    <td colspan="2"> $ {{ getTotal() }} </td>
                 </tr>
             </tbody>
         </table>
@@ -47,9 +47,19 @@ export default {
     },
     data() {
         return {
-            products: null
+            products: null,
         }
     },
+    methods: {
+        getTotal(){
+            let totalTemp= 0;
+
+            this.products.forEach((product)=> {
+                totalTemp+= product.price * product.quantity
+            });
+            return totalTemp.toFixed(2);
+        }
+    }
 }
 </script>
 
