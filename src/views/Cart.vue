@@ -26,14 +26,17 @@
                 </tr>
             </tbody>
         </table>
-        <button class="btn btn-info btn-block mb-4" v-if="products"> Generar Pedido</button>
+        <button class="btn btn-info btn-block mb-4" v-if="products" @click="createOrder()"> Generar Pedido</button>
         <h3 v-else>No tienes productos en el carrito</h3>
     </BasicLayout>
 </template>
 
 <script>
+import jwtDecode from 'jwt-decode';
 import BasicLayout from '../layouts/BasicLayout.vue';
 import { getProductsCartApi, deleteProductCartApi } from '../api/cart';
+import { createOrderAPi } from '../api/order';
+import { getTokenAPI } from '../api/token';
 
 
 export default {
@@ -68,6 +71,23 @@ export default {
         deleteAllProductCart(id){
             deleteProductCartApi(id);
             this.reloadCart= !this.reloadCart;
+        },
+        async createOrder(){
+            const token= getTokenAPI();
+            const { id }= jwtDecode(token);
+
+            const data={
+                user: id,
+                totalPayment: this.getTotal(),
+                data: this.products,
+            }
+
+            try {
+                const response= await createOrderAPi(data);
+                console.log("Pedido creado");
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 }
