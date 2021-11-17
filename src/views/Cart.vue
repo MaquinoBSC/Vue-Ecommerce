@@ -34,7 +34,7 @@
 <script>
 import jwtDecode from 'jwt-decode';
 import BasicLayout from '../layouts/BasicLayout.vue';
-import { getProductsCartApi, deleteProductCartApi } from '../api/cart';
+import { getProductsCartApi, deleteProductCartApi, deleteCartApi } from '../api/cart';
 import { createOrderAPi } from '../api/order';
 import { getTokenAPI } from '../api/token';
 
@@ -84,7 +84,8 @@ export default {
 
             try {
                 const response= await createOrderAPi(data);
-                console.log("Pedido creado");
+                deleteCartApi();
+                this.$router.push('/orders');
             } catch (error) {
                 console.log(error);
             }
