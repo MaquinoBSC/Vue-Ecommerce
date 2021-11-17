@@ -16,7 +16,7 @@
                     <td>{{ product.quantity }}</td>
                     <td>${{ product.price }}</td>
                     <td style="text-align: center;">
-                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-danger" @click="deleteAllProductCart(product.id)">Delete</button>
                     </td>
                 </tr>
                 <tr>
@@ -33,7 +33,7 @@
 
 <script>
 import BasicLayout from '../layouts/BasicLayout.vue';
-import { getProductsCartApi } from '../api/cart';
+import { getProductsCartApi, deleteProductCartApi } from '../api/cart';
 
 
 export default {
@@ -41,13 +41,19 @@ export default {
     components: {
         BasicLayout,
     },
-    async created(){
-        const response= await getProductsCartApi();
-        this.products= response;
+    created(){
+        this.reloadCart= true;
+    },
+    watch: {
+        async reloadCart(){
+            const response= await getProductsCartApi();
+            this.products= response;
+        }
     },
     data() {
         return {
             products: null,
+            reloadCart: false,
         }
     },
     methods: {
@@ -58,6 +64,10 @@ export default {
                 totalTemp+= product.price * product.quantity
             });
             return totalTemp.toFixed(2);
+        },
+        deleteAllProductCart(id){
+            deleteProductCartApi(id);
+            this.reloadCart= !this.reloadCart;
         }
     }
 }

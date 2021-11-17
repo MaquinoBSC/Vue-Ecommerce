@@ -59,3 +59,15 @@ export function deleteProductCartApi(idProduct){
 
     localStorage.setItem(PRODUCTS, JSON.stringify(products));
 }
+
+
+export function deleteAllProductCartApi(idProduct){
+    const products= getCartApi();
+
+    const index= products.lastIndexOf(idProduct);
+    if(index > -1){
+        products.splice(index, 1);
+        localStorage.setItem(PRODUCTS, JSON.stringify(products));
+        deleteAllProductCatApi(idProduct);
+    }
+}
