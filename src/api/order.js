@@ -21,3 +21,15 @@ export async function createOrderAPi(data){
         return null;
     }
 }
+
+export async function getOrders(idUser){
+    try {
+        const response= await fetch(`${API_URL}/orders?_where[user]=${idUser}&_sort=created_at:desc`);
+        const result= await response.json();
+        return result;
+        
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}

@@ -96,4 +96,10 @@ export default {
         width: 100px;
         border-radius: 15px;
     }
+
+    .text-menu:hover{
+        cursor: pointer;
+        color: #fff;
+        text-decoration: underline;
+    }
 </style>

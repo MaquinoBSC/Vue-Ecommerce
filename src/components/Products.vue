@@ -48,6 +48,10 @@ export default {
         &:hover{
             .button{
                 min-height: 36px;
+
+                &:hover{
+                    cursor: pointer;
+                }
             }
         }
     }
